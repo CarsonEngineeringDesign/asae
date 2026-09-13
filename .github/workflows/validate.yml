@@ -1,0 +1,63 @@
+name: validate
+
+on:
+  push:
+    branches: [prod, dev]
+  pull_request:
+
+jobs:
+  house-rules:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: No em dashes or en dashes
+        run: |
+          hit=0
+          if grep -rIlP '[\x{2014}\x{2013}]' --include='*.md' --include='*.json' --include='*.yml' .; then
+            hit=1
+          fi
+          if grep -rIl -e '\\u2014' -e '\\u2013' --include='*.json' .; then
+            echo "The files above encode an em dash or en dash as a JSON escape."
+            hit=1
+          fi
+          if [ "$hit" -eq 1 ]; then
+            echo "Found an em dash or en dash in the files listed above. Use a full stop, a comma, or a colon."
+            exit 1
+          fi
+          echo "No dashes found."
+
+      - name: Frontmatter parses and has a description
+        run: |
+          python3 - <<'PY'
+          import glob, sys, yaml
+          bad = []
+          for f in glob.glob('commands/*.md') + glob.glob('agents/*.md') + glob.glob('skills/*/SKILL.md'):
+              text = open(f).read()
+              if not text.startswith('---'):
+                  bad.append((f, 'no frontmatter')); continue
+              try:
+                  data = yaml.safe_load(text.split('---', 2)[1])
+              except Exception as e:
+                  bad.append((f, f'yaml error: {e}')); continue
+              if not isinstance(data, dict) or not data.get('description'):
+                  bad.append((f, 'missing description'))
+              if f.startswith('agents/') and not data.get('name'):
+                  bad.append((f, 'missing name'))
+          for f, why in bad:
+              print(f'{f}: {why}')
+          sys.exit(1 if bad else 0)
+          PY
+
+      - name: Manifests are valid JSON
+        run: |
+          python3 -c "import json; json.load(open('.claude-plugin/plugin.json')); json.load(open('.claude-plugin/marketplace.json')); print('manifests ok')"
+
+      - name: No template placeholders left
+        run: |
+          if grep -rIl -e 'YOUR NAME' -e 'YOUR-USER' -e 'you@example.com' \
+             --exclude-dir=.git --exclude=validate.yml .; then
+            echo "Template placeholder text is still present in the files above."
+            exit 1
+          fi
+          echo "No placeholders."

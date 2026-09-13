@@ -1,0 +1,16 @@
+{
+  "name": "asae",
+  "owner": {
+    "name": "CarsonEngineeringDesign"
+  },
+  "metadata": {
+    "description": "Agentic Solution Architecture Engineering. End-to-end software delivery under a fixed house standard."
+  },
+  "plugins": [
+    {
+      "name": "asae",
+      "source": "./",
+      "description": "End-to-end software delivery: six-section planning, subagent-driven build, seven-section developer docs, a class index, and a zero-defect design bar."
+    }
+  ]
+}
