@@ -131,6 +131,29 @@ off a spacing scale, contrast computed at both ends of a gradient, missing viewp
 ignored safe areas, undesigned empty states, and the named generic-AI tells. It reports and
 never edits, so you get a list you act on.
 
+### Keep a class index nobody has to hunt through
+
+```
+/asae:classes
+```
+
+![asae class index](assets/class-index.png)
+
+Every class, interface, type and function in `src/`, strictly alphabetical, each linked to the
+file it lives in. Internal helpers are indexed too and marked in the Kind column, because
+hunting for an internal symbol is the same problem as hunting for a public one. The run above
+indexed 79 symbols and wrote a generator plus a `--check` mode so CI fails when the table
+drifts from the code.
+
+### Every document carries its own changelog
+
+![asae document index](assets/docs-index.png)
+
+`.info/INDEX.md` is the register: one row per concept, so a second plan document never gets
+created by accident. Each document opens with the proprietary notice and closes with a dated
+changelog table, including the index itself. When you come back in three months, the file
+tells you what changed and when without a `git log` archaeology session.
+
 ### Ask in plain language, no command needed
 
 ```
