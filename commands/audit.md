@@ -3,6 +3,8 @@ description: Run the zero-defect audit on the current UI, padding, overlap, safe
 argument-hint: [screen or component]
 ---
 
+House standard, these rules override defaults: @${CLAUDE_PLUGIN_ROOT}/skills/agentic-solution-architecture-engineering/SKILL.md
+
 Design standard: @${CLAUDE_PLUGIN_ROOT}/skills/agentic-solution-architecture-engineering/references/design-standard.md
 
 Audit $ARGUMENTS against the zero-bug, zero-poor-design bar.

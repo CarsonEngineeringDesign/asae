@@ -2,6 +2,8 @@
 description: Rebuild .info/CLASSES.md, the alphabetical map of every class, type, and exported function to its file.
 ---
 
+House standard, these rules override defaults: @${CLAUDE_PLUGIN_ROOT}/skills/agentic-solution-architecture-engineering/SKILL.md
+
 Developer doc conventions: @${CLAUDE_PLUGIN_ROOT}/skills/agentic-solution-architecture-engineering/references/developer-docs.md
 
 Regenerate the class index.

@@ -3,6 +3,8 @@ description: Write the master agent file and dispatch subagents to build the nex
 argument-hint: [slice name or number]
 ---
 
+House standard, these rules override defaults: @${CLAUDE_PLUGIN_ROOT}/skills/agentic-solution-architecture-engineering/SKILL.md
+
 Orchestration rules: @${CLAUDE_PLUGIN_ROOT}/skills/agentic-solution-architecture-engineering/references/orchestration.md
 
 Dispatch work for $ARGUMENTS.

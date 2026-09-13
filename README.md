@@ -88,6 +88,59 @@ phase starts.
 | `orchestration.md` | Subagent dispatch from a single master file |
 | `planning.md` | Six-section plan structure, benchmark sourcing, margin honesty |
 
+## Examples
+
+Every screenshot below is real output from a real run against a throwaway project.
+Nothing here is mocked up.
+
+### Plan a project from one sentence
+
+```
+/asae:plan a job board for theatre technicians, mobile first. lean plan.
+```
+
+![asae plan output](assets/plan.png)
+
+Writes the six sections to `.info/PLAN.md`, plus a context document and a document index,
+and reports back with paths rather than pasting the plan into chat. Note what it refused to
+do: every market and cost figure came back labelled `[TODO verify]` instead of filled in,
+because no research tool was available in that session and a recalled price sitting next to
+a real one poisons both.
+
+### Get a design direction, not a slide about one
+
+The same run produced a mobile comp you can open in a browser.
+
+<p align="center"><img src="assets/design-comp.png" alt="generated call feed comp" width="330"></p>
+
+The anti-generic rules are doing visible work here. No purple gradient, no row of identical
+rounded cards, no stock hero. The surface is near black because a white phone screen backstage
+during a show is a real problem, and the one bright value is a warm running-light amber taken
+from the subject matter. Dates, rates and call times come from the domain, not from filler.
+
+### Audit a screen before it ships
+
+```
+/asae:audit index.html
+```
+
+![asae audit output](assets/audit.png)
+
+`design-auditor` reports pass or fail with evidence and a file line for each finding: padding
+off a spacing scale, contrast computed at both ends of a gradient, missing viewport meta,
+ignored safe areas, undesigned empty states, and the named generic-AI tells. It reports and
+never edits, so you get a list you act on.
+
+### Ask in plain language, no command needed
+
+```
+add password reset to the auth flow and get it production ready
+```
+
+The skill activates on its own for software work. Small requests get the same authorship and
+response rules as large ones: a bold opening line that answers the question, detail after it,
+documents written to `.info/` with a path in chat, and a commit that credits you.
+
 ## Response style
 
 Answers open with one bold line. Detail comes after, or behind a tap. Documents go to files and

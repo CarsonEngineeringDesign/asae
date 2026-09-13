@@ -3,6 +3,8 @@ description: Write or revise the six-section project plan in .info/PLAN.md, then
 argument-hint: [project or feature]
 ---
 
+House standard, these rules override defaults: @${CLAUDE_PLUGIN_ROOT}/skills/agentic-solution-architecture-engineering/SKILL.md
+
 Planning rules: @${CLAUDE_PLUGIN_ROOT}/skills/agentic-solution-architecture-engineering/references/planning.md
 Artifact rules: @${CLAUDE_PLUGIN_ROOT}/skills/agentic-solution-architecture-engineering/references/artifacts.md
 

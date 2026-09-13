@@ -2,6 +2,8 @@
 description: Run the ship checklist, README pills, logo, developer docs, class index, changelogs, runbook.
 ---
 
+House standard, these rules override defaults: @${CLAUDE_PLUGIN_ROOT}/skills/agentic-solution-architecture-engineering/SKILL.md
+
 Artifact rules: @${CLAUDE_PLUGIN_ROOT}/skills/agentic-solution-architecture-engineering/references/artifacts.md
 Developer doc rules: @${CLAUDE_PLUGIN_ROOT}/skills/agentic-solution-architecture-engineering/references/developer-docs.md
 CI and quality rules: @${CLAUDE_PLUGIN_ROOT}/skills/agentic-solution-architecture-engineering/references/ci-and-quality.md
