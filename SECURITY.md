@@ -2,8 +2,14 @@
 
 ## What this plugin contains
 
-Markdown instructions only. No executable code, no scripts, no MCP servers, no
-network calls, and no third party software is installed by it.
+Markdown instructions, plus one local shell script. No MCP servers, no network
+calls, and no third party software is installed by it.
+
+That script is `hooks/no-dashes.sh`, a Stop hook. It reads the reply you just
+received, checks it for an em dash or an en dash, and asks for a rewrite if it
+finds one. It reads the session transcript and writes a short JSON verdict to
+standard output. It sends nothing anywhere, and it exits without blocking if
+anything at all goes wrong, including `python3` not being installed.
 
 Its two agents run with read tools. `slice-reviewer` has `Bash` so it can run a
 test suite. `design-auditor` has no shell access at all.
@@ -49,5 +55,7 @@ is loaded into context when the skill activates, and it holds the behaviour rule
 The files under `references/` load only when the relevant phase begins. The
 `commands/` and `agents/` directories hold the rest.
 
-There are no inline shell execution lines anywhere in this plugin, so nothing runs
-on your machine when the skill loads.
+There are no inline shell execution lines in any command, skill, or agent file, so
+nothing runs on your machine when the skill loads. The single executable is
+`hooks/no-dashes.sh`, which runs when a reply finishes. It is about sixty lines and
+worth reading before you install.

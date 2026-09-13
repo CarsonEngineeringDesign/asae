@@ -2,7 +2,7 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/status-active-2ea44f?style=for-the-badge" alt="status">
-  <img src="https://img.shields.io/badge/version-1.0.0-3b5bdb?style=for-the-badge" alt="version">
+  <img src="https://img.shields.io/badge/version-1.1.0-3b5bdb?style=for-the-badge" alt="version">
   <img src="https://img.shields.io/badge/license-proprietary-6741d9?style=for-the-badge" alt="license">
   <img src="https://img.shields.io/badge/claude_code-plugin-d97757?style=for-the-badge" alt="claude code plugin">
 </p>
@@ -154,6 +154,23 @@ created by accident. Each document opens with the proprietary notice and closes 
 changelog table, including the index itself. When you come back in three months, the file
 tells you what changed and when without a `git log` archaeology session.
 
+### Answers that lead with the answer
+
+```
+Should the call feed store times as UTC or local to the venue? Answer directly.
+```
+
+![asae response style](assets/response-style.png)
+
+The first line answers the question. Evidence, file references and the one gap worth closing
+come after it. No preamble, no restating the question, no burying the verdict under four
+paragraphs of context.
+
+The no-dash rule is enforced by a Stop hook rather than by asking nicely. Measured over real
+runs, instructions alone left em dashes in roughly half of replies. The hook reads the finished
+reply, and asks for a rewrite when it finds one. The same question answered with 2 em dashes
+before the hook and 0 after.
+
 ### Ask in plain language, no command needed
 
 ```
@@ -171,13 +188,14 @@ chat gets a path, so a heavy process never produces a heavy conversation.
 
 ## Requirements
 
-Claude Code v2.x. No MCP servers, no network calls, no third-party software installed.
+Claude Code v2.x, and `python3` for the dash hook, which is optional and fails open. No MCP servers, no network calls, no third-party software installed.
 
 ## Security
 
-No executable code, no scripts, no MCP servers, no network calls, no telemetry.
-`design-auditor` runs with read tools only. `slice-reviewer` also gets `Bash` so it can
-run your test suite. See [SECURITY.md](SECURITY.md).
+No MCP servers, no network calls, no telemetry. One local shell script,
+`hooks/no-dashes.sh`, runs when a reply finishes and asks for a rewrite if it finds a
+dash. `design-auditor` runs with read tools only. `slice-reviewer` also gets `Bash` so
+it can run your test suite. See [SECURITY.md](SECURITY.md).
 
 ## Support
 

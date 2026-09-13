@@ -53,6 +53,26 @@ jobs:
         run: |
           python3 -c "import json; json.load(open('.claude-plugin/plugin.json')); json.load(open('.claude-plugin/marketplace.json')); print('manifests ok')"
 
+      - name: Dash hook behaves
+        run: |
+          set -e
+          mkdir -p /tmp/ht
+          printf '%s\n' '{"type":"assistant","message":{"role":"assistant","content":[{"type":"text","text":"UTC \u2014 store it."}]}}' > /tmp/ht/bad.jsonl
+          printf '%s\n' '{"type":"assistant","message":{"role":"assistant","content":[{"type":"text","text":"UTC. Store it, 150 to 200ms."}]}}' > /tmp/ht/good.jsonl
+          chmod +x hooks/no-dashes.sh
+          out=$(echo '{"stop_hook_active":false,"transcript_path":"/tmp/ht/bad.jsonl"}' | ./hooks/no-dashes.sh)
+          echo "$out" | grep -q '"decision": "block"' || { echo "FAIL: dashed reply was not blocked"; exit 1; }
+          out=$(echo '{"stop_hook_active":false,"transcript_path":"/tmp/ht/good.jsonl"}' | ./hooks/no-dashes.sh)
+          [ -z "$out" ] || { echo "FAIL: clean reply was blocked: $out"; exit 1; }
+          out=$(echo '{"stop_hook_active":true,"transcript_path":"/tmp/ht/bad.jsonl"}' | ./hooks/no-dashes.sh)
+          [ -z "$out" ] || { echo "FAIL: loop guard did not hold"; exit 1; }
+          echo '{"stop_hook_active":false,"transcript_path":"/nope"}' | ./hooks/no-dashes.sh >/dev/null
+          echo 'not json' | ./hooks/no-dashes.sh >/dev/null
+          echo "Hook blocks dashes, passes clean text, guards the loop, and fails open."
+
+      - name: Hook script is executable
+        run: test -x hooks/no-dashes.sh || { echo "hooks/no-dashes.sh is not executable"; exit 1; }
+
       - name: No template placeholders left
         run: |
           if grep -rIl -e 'YOUR NAME' -e 'YOUR-USER' -e 'you@example.com' \

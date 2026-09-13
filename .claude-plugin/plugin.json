@@ -1,6 +1,6 @@
 {
   "name": "asae",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Agentic Solution Architecture Engineering. Runs software projects end to end, covering planning, architecture, subagent-driven implementation, tests, CI, and documentation, under a fixed house standard: docs in .info/, one document per concept, a changelog in every document, a class index, author-only commits, and a zero-bug, zero-poor-design bar.",
   "author": {
     "name": "CarsonEngineeringDesign",
